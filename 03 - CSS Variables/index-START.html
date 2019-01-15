@@ -21,6 +21,26 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /*CSS variables are part of the DOM which is more powerful and flexible to manipulate across DOM unlike SASS and LESS and can be called through JavaScript using three lines of code*/
+
+    /*CSS variable being declared with CSS properties*/
+    :root {
+      --base: #ffc600;
+      --spacing: 50px;
+      --blur: 10px;
+    }
+
+    /*Call the CSS variables in our HTML elements such as image*/
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +65,15 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
